@@ -1,0 +1,45 @@
+# This workflow will use the Platform API to run a script when a branch is labeled.
+
+name: Ticket Branch on Label
+
+on:
+  pull_request:
+    types: [labeled]
+
+jobs:
+#   job1:
+#     if: github.event.label.name == 'ticket build'
+#     name: 'Ticket Build'
+#     runs-on: ubuntu-latest
+#     env:
+#       BRANCH_NAME: ${{ github.head_ref }}
+#       AUTH_HEADER: "Authorization: bearer ${{ secrets.CIVIS_CUSTOM_SCRIPTS_API_KEY }}"
+#       CONTENT_TYPE_HEADER: "Content-Type: application/json"
+#       TEMPLATE_ID: 887
+#     steps:
+#       - name: Create Mark 7-G Custom Script
+#         run: |
+#           echo "Creating script to ticket build for branch $BRANCH_NAME"
+#           create_json="{\"hidden\":true, \"fromTemplateId\":${TEMPLATE_ID}, \"arguments\":{\"BRANCH_NAME\": \"${BRANCH_NAME}\"}}"
+#           script_id=$(curl -H "$AUTH_HEADER" -H "$CONTENT_TYPE_HEADER" -d "$create_json" -X POST https://api.civisanalytics.com/scripts/custom | jq '.id')
+#           echo "::set-env name=script_id::$script_id"
+#           echo "Created script $script_id to ticket this branch."
+#       - name: Share Mark 7-G Custom Script
+#         run: |
+#           echo "Sharing script"
+#           share_json="{\"groupIds\":[360], \"permissionLevel\": \"manage\"}"
+#           error=$(curl -H "$AUTH_HEADER" -H "$CONTENT_TYPE_HEADER" -d "$share_json" -X PUT "https://api.civisanalytics.com/scripts/custom/${script_id}/shares/groups" | jq '.error')
+#           if [ $error == "null" ]; then
+#             echo "Shared script with Support group."
+#           else
+#             echo "Error sharing script: $error"
+#           fi
+#       - name: Run Mark 7-G Custom Script
+#         run: |
+#           error=$(curl -H "$AUTH_HEADER" -X POST "https://api.civisanalytics.com/scripts/custom/${script_id}/runs" | jq '.error')
+#           if [ $error == "null" ]; then
+#             echo "Started running script. View its progress at https://platform.civisanalytics.com/spa/#/scripts/custom/$script_id"
+#           else
+#             echo "Error running script: $error"
+#             exit 1
+#           fi
