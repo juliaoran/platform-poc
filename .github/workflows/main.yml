@@ -36,10 +36,10 @@ jobs:
 #           else
 #             echo "Error sharing script: $error"
 #           fi
-      - name: Update Code
-        run: |
-          echo "Updating code"
-          response=$(curl -H "$AUTH_HEADER" -X POST "https://api.civisanalytics.com/scripts/python3/80364294/runs" | jq '.error')
+      # - name: Update Code
+      #   run: |
+      #     echo "Updating code"
+      #     response=$(curl -H "$AUTH_HEADER" -X POST "https://api.civisanalytics.com/scripts/python3/80364294/runs" | jq '.error')
       - name: Run Script
         run: |
           echo "Running script..."
