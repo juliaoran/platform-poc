@@ -38,6 +38,8 @@ jobs:
 #           fi
       - name: Run Script
         run: |
+          echo "Running script..."
+          echo ${AUTH_HEADER}
           error=$(curl -H "$AUTH_HEADER" -X POST "https://api.civisanalytics.com/scripts/python3/80364294/runs" | jq '.error')
           if [ $error == "null" ]; then
             echo "Started running script. View its progress at https://platform.civisanalytics.com/spa/#/scripts/python3/80364294"
