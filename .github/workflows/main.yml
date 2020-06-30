@@ -36,10 +36,13 @@ jobs:
 #           else
 #             echo "Error sharing script: $error"
 #           fi
+      - name: Update Code
+        run: |
+          echo "Updating code"
+          response=$(curl -H "$AUTH_HEADER" -X POST "https://api.civisanalytics.com/scripts/python3/80364294/runs" | jq '.error')
       - name: Run Script
         run: |
           echo "Running script..."
-          echo ${AUTH_HEADER}
           error=$(curl -H "$AUTH_HEADER" -X POST "https://api.civisanalytics.com/scripts/python3/80364294/runs" | jq '.error')
           if [ $error == "null" ]; then
             echo "Started running script. View its progress at https://platform.civisanalytics.com/spa/#/scripts/python3/80364294"
