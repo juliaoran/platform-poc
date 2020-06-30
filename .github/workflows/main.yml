@@ -1,4 +1,4 @@
-# This workflow will use the Platform API to run a script when a branch is labeled.
+# This workflow will use the Platform API to run a script.
 
 name: Run Code on Push to Master
 
@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       BRANCH_NAME: ${{ github.head_ref }}
-      AUTH_HEADER: "Authorization: bearer ${{ secrets.CIVIS_CUSTOM_SCRIPTS_API_KEY }}"
+      AUTH_HEADER: "Authorization: Basic ${{ secrets.CIVIS_API_KEY }}"
       CONTENT_TYPE_HEADER: "Content-Type: application/json"
       # TEMPLATE_ID: 887
     steps:
